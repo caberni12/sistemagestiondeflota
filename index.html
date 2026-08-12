@@ -11,10 +11,10 @@
   <meta name="description" content="Acceso al Sistema de Gestión de Flotas">
   <title>Iniciar sesión · Sistema de Gestión de Flotas</title>
   <link rel="icon" href="logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="acceso.css?v=4.3.17-config-fix">
-  <link rel="stylesheet" href="responsive.css?v=4.3.17-config-fix">
-  <link rel="stylesheet" href="interfaz-moderna.css?v=4.3.17-config-fix">
-  <script src="tema.js?v=4.3.17-config-fix"></script>
+  <link rel="stylesheet" href="acceso.css?v=4.3.22-cache-final">
+  <link rel="stylesheet" href="responsive.css?v=4.3.22-cache-final">
+  <link rel="stylesheet" href="interfaz-moderna.css?v=4.3.22-cache-final">
+  <script src="tema.js?v=4.3.22-cache-final"></script>
 </head>
 <body>
   <noscript><div class="aviso-sin-js">Debe habilitar JavaScript para iniciar sesión.</div></noscript>
@@ -44,9 +44,8 @@
       <form class="tarjeta-acceso conexion-empresa-inicial" id="formularioConexionEmpresa" novalidate>
         <div class="encabezado-formulario encabezado-con-ajuste">
           <div><span class="etiqueta">CONFIGURACIÓN DEL DISPOSITIVO</span><h2>Conectar empresa</h2></div>
-          <button class="icono-ajuste-login" id="abrirConfiguracionEmpresa" type="button" aria-label="Configurar conexión de empresa" title="Configurar conexión">⚙</button>
         </div>
-        <p class="descripcion-conexion-inicial">Este paso se realiza una sola vez. Ingrese el RUT para encontrar internamente la base correspondiente.</p>
+        <p class="descripcion-conexion-inicial">Ingrese el RUT para validar la empresa en el directorio autorizado. La dirección del directorio solo puede modificarse con autorización SYSADMIN dentro del sistema.</p>
         <div class="mensaje-formulario oculto" id="mensajeConexionEmpresa" role="alert"></div>
         <label class="campo">
           <span>RUT de la empresa</span>
@@ -56,7 +55,22 @@
           <i>○</i><div><b>Conexión pendiente</b><span>La dirección del servicio permanecerá oculta.</span></div>
         </div>
         <button class="boton-principal" id="botonConexionEmpresa" type="submit">Buscar y conectar</button>
+        <button class="boton-enlace acceso-sysadmin-link" id="abrirAccesoSysadmin" type="button">Acceso Administrador del Sistema</button>
         <small class="detalle-servicio">Solo se mostrará el nombre de la empresa y la confirmación de conexión.</small>
+      </form>
+
+      <form class="tarjeta-acceso acceso-sysadmin oculto" id="formularioAccesoSysadmin" novalidate autocomplete="off">
+        <div class="encabezado-formulario">
+          <span class="etiqueta">ACCESO SUPERIOR</span>
+          <h2>Administrador del Sistema</h2>
+          <p>Acceso independiente del login normal. Use el RUT de la empresa y una clave generada desde el Control Externo.</p>
+        </div>
+        <div class="mensaje-formulario oculto" id="mensajeSysadmin" role="alert"></div>
+        <label class="campo"><span>RUT de la empresa</span><input id="rutSysadmin" name="rut" required inputmode="text" autocomplete="off" placeholder="76.123.456-0"></label>
+        <label class="campo"><span>Clave de acceso SYSADMIN</span><div class="campo-contrasena"><input id="claveSysadmin" name="clave" type="password" required autocomplete="new-password" placeholder="SGF-XXXXXX-..."><button id="mostrarClaveSysadmin" type="button" aria-label="Mostrar clave">◉</button></div></label>
+        <div class="estado-empresa-pendiente"><i>◆</i><div><b>Clave no almacenada</b><span>Se valida una vez contra la base y se descarta del navegador.</span></div></div>
+        <button class="boton-principal" id="botonAccesoSysadmin" type="submit">Acceder como Administrador del Sistema</button>
+        <button class="boton-enlace" id="volverAccesoEmpresa" type="button">Volver al acceso normal</button>
       </form>
 
       <form class="tarjeta-acceso preconfiguracion oculto" id="formularioPreconfiguracion" novalidate>
@@ -118,25 +132,9 @@
       </form>
     </section>
   </main>
-  <dialog class="dialogo-conexion-avanzada" id="dialogoConexionAvanzada">
-    <form method="dialog" id="formularioConexionAvanzada" class="conexion-avanzada-form">
-      <div class="encabezado-formulario">
-        <span class="etiqueta">RECUPERACIÓN DE CONEXIÓN</span>
-        <h2>Directorio de conexión</h2>
-        <p>Use esta opción solo cuando cambie la dirección del directorio. Quedará guardada en este dispositivo y ya no requiere modificar el código.</p>
-      </div>
-      <div class="mensaje-formulario oculto" id="mensajeConexionAvanzada" role="alert"></div>
-      <label class="campo"><span>Dirección HTTPS del directorio</span><input id="urlDirectorioAvanzada" name="urlDirectorio" type="url" inputmode="url" autocomplete="off" required placeholder="https://.../exec"></label>
-      <label class="aceptacion-preconfig"><input id="confirmarCambioDirectorio" type="checkbox" required><span>Confirmo que esta dirección corresponde al directorio autorizado del sistema.</span></label>
-      <div class="acciones-dialogo-conexion">
-        <button class="boton-enlace" id="restaurarDirectorio" type="button">Restaurar dirección predeterminada</button>
-        <button class="boton-enlace" value="cancel" type="button" id="cerrarConexionAvanzada">Cancelar</button>
-        <button class="boton-principal" id="guardarConexionAvanzada" type="submit">Guardar conexión</button>
-      </div>
-      <small class="detalle-servicio">La dirección queda guardada únicamente en este dispositivo. Al iniciar sesión, Administración puede sincronizar el perfil central.</small>
-    </form>
-  </dialog>
 
-  <script src="sgf-login.439.js?v=sec13-config-format-fix"></script>
+  <script src="configuracion.js?v=4.3.22-cache-final"></script>
+  <script src="conexion.js?v=4.3.22-cache-final"></script>
+  <script src="acceso.js?v=4.3.22-cache-final"></script>
 </body>
 </html>
